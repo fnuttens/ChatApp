@@ -28,6 +28,10 @@ io.on('connection', (socket) => {
       return callback('Name and room name are required.');
     }
 
+    if(users.getUsersList(params.room).includes(params.name)) {
+      return callback('Name already taken for this room.');
+    }
+
     socket.join(params.room);
     users.removeUser(socket.id);
     users.addUser(socket.id, params.name, params.room);
